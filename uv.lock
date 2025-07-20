@@ -331,16 +331,16 @@ wheels = [
 
 [[package]]
 name = "py3xui"
-version = "0.4.1"
+version = "0.5.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/71/6f/eba6e88f1a06578dd20977cfde7f92c63b85e13ec4f1f19dd99089cf31ba/py3xui-0.4.1.tar.gz", hash = "sha256:e1d02ddd20dbe96abb26d85069bf8ee43c379b2356126b0cb31a6d84651a055c", size = 36938, upload_time = "2025-07-04T11:32:49.249Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/72/91/a47238b1003b6e01de917c5d132a2aaf97f472b952b1e9c4fbf7433fce13/py3xui-0.5.1.tar.gz", hash = "sha256:d2ee2dd49f59d9b955b86b3d02f4ef83e7f772e951b78e6b7b2a7673f51bc45d", size = 36437, upload_time = "2025-07-15T13:25:37.851Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/41/04/d5a9dfa3d41cc7e5c71e79a8585e4465fe48099e68c758dc08bfa5c371b0/py3xui-0.4.1-py3-none-any.whl", hash = "sha256:ba9a921e01debe74cfdd611d240a2001a2560ccf78e9f05c812760c7aec52ef9", size = 43312, upload_time = "2025-07-04T11:32:48.033Z" },
+    { url = "https://files.pythonhosted.org/packages/d1/ce/8eb905dcec066e5ebec01317e33cf2db7af8aa0dae278edc082c10321015/py3xui-0.5.1-py3-none-any.whl", hash = "sha256:9c3504e9786bc47acc0cbd46e8e3ca3721aa4afd5b766acb5bc28f75f6ced631", size = 42219, upload_time = "2025-07-15T13:25:36.846Z" },
 ]
 
 [[package]]
@@ -423,7 +423,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "aiogram", specifier = ">=3.21.0" },
-    { name = "py3xui", specifier = ">=0.4.1" },
+    { name = "py3xui", specifier = ">=0.5.1" },
     { name = "pydantic", specifier = ">=2.11.7" },
 ]
 
