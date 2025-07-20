@@ -4,4 +4,4 @@ ADD . /app
 WORKDIR /app
 RUN uv sync --locked --compile-bytecode
 
-RUN uv run main.py
+CMD ["uv", "run", "main.py"]
