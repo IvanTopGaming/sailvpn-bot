@@ -16,6 +16,8 @@ from routing.filter.VpnUserOnlyFilter import VpnUserOnlyFilter
 from routing.handles import handle_names
 from data.repository.ServersRepository import ServersRepository
 from routing.middleware.AppMiddleware import AppMiddleware
+from services.Logging import LoggingService
+from services.TgLogging import Tglogger
 
 
 class App:
@@ -24,13 +26,15 @@ class App:
         self.logger = logging.getLogger(__name__)
         self.bot = Bot(
             token=self.config.telegram_token,
-            default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN_V2)
+            default=DefaultBotProperties(parse_mode=None)
         )
 
         self.server_repository = ServersRepository(file="config/servers.json")
         self.user_repository = UsersRepository(file="config/users.json")
 
         self.dispatcher = Dispatcher(bot=self.bot)
+        self.tglogger = Tglogger(self.bot, self.config)
+        self.logging_service = LoggingService(self)
 
         self.vpn_user_only_filter = VpnUserOnlyFilter()
 
@@ -45,6 +49,7 @@ class App:
             self.dispatcher.include_router(router)
 
     async def run(self):
+        await self.logging_service.on_service_start()
         await self.dispatcher.start_polling(self.bot)
 
 
@@ -53,7 +58,7 @@ class App:
         found_clients = await self.user_repository.find_client_keys_by_uuid(servers, uuid)
         return found_clients
 
-    async def find_user_uuid_by_tgid(self, tgid: str) -> User:
+    async def find_user_by_tgid(self, tgid: str) -> User:
         found_client = await self.user_repository.find_user_by_uuid(tgid)
         return found_client
 

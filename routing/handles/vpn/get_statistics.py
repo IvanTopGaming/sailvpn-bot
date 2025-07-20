@@ -12,8 +12,9 @@ router = Router()
 
 @router.callback_query(F.data.startswith("get_statistics"), VpnUserOnlyFilter())
 async def get_statistics(callback_query, app: App):
-    user = await app.find_user_uuid_by_tgid(callback_query.from_user.id)
     tmp_message = await callback_query.message.answer("⏳ Получение статистики клиента...", parse_mode=None)
+    user = await app.find_user_by_tgid(callback_query.from_user.id)
+    await app.logging_service.on_user_request_statistics(user)
 
     if not user:
         await callback_query.answer("Пользователь не найден.")

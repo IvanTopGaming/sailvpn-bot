@@ -16,13 +16,14 @@ router = Router()
 @router.callback_query(F.data.startswith("get_keys"), VpnUserOnlyFilter())
 async def get_keys(callback_query: CallbackQuery, app):
     tmp_message = await app.bot.send_message(callback_query.message.chat.id, "🔍 Поиск ключей...", parse_mode=None)
+    user = await app.find_user_by_tgid(callback_query.from_user.id)
+    await app.logging_service.on_user_request_keys(user)
 
-    user_uuid = await app.find_user_uuid_by_tgid(callback_query.from_user.id)
-    if not user_uuid:
+    if not user:
         await callback_query.answer("⛔ Пользователь не найден.", show_alert=True)
         return
 
-    found_clients = await app.find_users_key_by_uuid(user_uuid.uuid)
+    found_clients = await app.find_users_key_by_uuid(user.uuid)
     if not found_clients or len(found_clients) == 0:
         await callback_query.answer("⛔ Ключи не найдены для данного пользователя.", show_alert=True)
         return
