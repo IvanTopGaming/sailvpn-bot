@@ -1,0 +1,6 @@
+/config/users.json
+/config/servers.json
+/config/config.json
+/.idea
+/.venv
+*.pycache*
