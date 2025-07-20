@@ -1,0 +1,10 @@
+[project]
+name = "tgbot"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.21.0",
+    "py3xui>=0.4.1",
+    "pydantic>=2.11.7",
+]

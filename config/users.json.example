@@ -1,0 +1,15 @@
+[
+  {
+    "uuid": "00000000-0000-0000-0000-000000000000",
+    "tgid": -100000000,
+    "readable_name": "Admin",
+    "additional_keys": [
+      {
+        "name": "Admin's Mom",
+        "uuid": "00000000-0000-0000-0000-000000000001",
+        "preferred_server": "some-1"
+      }
+    ],
+    "preferred_server": "some-1"
+  }
+]

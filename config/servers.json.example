@@ -1,0 +1,11 @@
+[
+  {
+    "conventional_name": "some-1",
+    "host": "http://1.2.3.4:2053/",
+    "username": "admin",
+    "password": "qwerty123",
+    "readable_name": "Server name",
+    "vless_host": "1.2.3.4",
+    "vless_port": 443
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "telegram_token": "token",
+  "telegram_logs_chat_id": "-1000000000000",
+  "telegram_admins": [
+    1000000000
+  ]
+}
