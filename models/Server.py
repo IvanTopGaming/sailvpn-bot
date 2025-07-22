@@ -21,7 +21,7 @@ class Server(BaseModel):
         website_name = inbound.stream_settings.reality_settings.get("serverNames")[0]
         short_id = inbound.stream_settings.reality_settings.get("shortIds")[0]
         fp = inbound.stream_settings.reality_settings.get("settings", {}).get("fingerprint", "chrome")
-        flow = inbound.stream_settings.reality_settings.get("settings", {}).get("flow", "xtls-rprx-vision")
+        flow = client.flow
 
         connection_string = (
             f"vless://{client.id}@{self.vless_host}:{self.vless_port}"
