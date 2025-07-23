@@ -26,6 +26,13 @@ class UsersRepository:
         users = self.list_users()
         return any(user.tgid == tgid for user in users)
 
+    def find_user_by_tgid(self, tgid: int) -> User | None:
+        users = self.list_users()
+        for user in users:
+            if user.tgid == tgid:
+                return user
+        return None
+
     async def find_clients_by_uuid(self, servers: List[Server], uuid: str) -> Dict[Server, ClientIdentity]:
         found_clients_tasks = []
         for server in servers:

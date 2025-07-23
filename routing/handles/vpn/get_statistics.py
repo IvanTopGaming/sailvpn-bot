@@ -5,22 +5,18 @@ from aiogram.enums import ParseMode
 from aiogram.types import InlineKeyboardMarkup
 
 from App import App
+from models.User import User
 from routing.filter.VpnUserOnlyFilter import VpnUserOnlyFilter
 from routing.keyboard.delete_keyboard import get_delete_message_keyboard
 
 router = Router()
 
 @router.callback_query(F.data.startswith("get_statistics"), VpnUserOnlyFilter())
-async def get_statistics(callback_query, app: App):
+async def get_statistics(callback_query, app: App, vpn_user: User):
     tmp_message = await callback_query.message.answer("⏳ Получение статистики клиента...", parse_mode=None)
-    user = await app.find_user_by_tgid(callback_query.from_user.id)
-    await app.logging_service.on_user_request_statistics(user)
+    await app.logging_service.on_user_request_statistics(vpn_user)
 
-    if not user:
-        await callback_query.answer("Пользователь не найден.")
-        return
-
-    client = await app.find_clients_by_uuid(user.uuid)
+    client = await app.find_clients_by_uuid(vpn_user.uuid)
     if not client or len(client) == 0:
         await callback_query.answer("Клиент не найден.")
         return

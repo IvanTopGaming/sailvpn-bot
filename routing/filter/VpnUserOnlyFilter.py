@@ -8,9 +8,10 @@ class VpnUserOnlyFilter(BaseFilter):
     """
 
     async def __call__(self, update: types.Update, app):
-        user = update.from_user.id
-        if app.user_repository.has_user_with_tgid(user):
-            return True
+        user_id = update.from_user.id
+        user = app.user_repository.find_user_by_tgid(user_id)
+        if user:
+            return {"vpn_user": user}
 
         await update.answer("⛔ Доступ к боту запрещен, вы не являетесь доверенным пользователем. Если вы ожидали его получить, обратитесь в поддержку.", parse_mode=None)
         return False
