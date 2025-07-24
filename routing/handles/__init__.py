@@ -3,4 +3,5 @@ handle_names = [
     'vpn.get_keys',
     'vpn.get_statistics',
     'util.remove_message',
+    'admin.notify',
 ]

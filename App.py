@@ -58,8 +58,12 @@ class App:
         found_clients = await self.user_repository.find_client_keys_by_uuid(servers, uuid)
         return found_clients
 
-    async def find_user_by_tgid(self, tgid: str) -> User:
-        found_client = await self.user_repository.find_user_by_uuid(tgid)
+    async def find_user_by_tgid(self, tgid: int) -> User:
+        found_client = await self.user_repository.find_user_by_tgid(tgid)
+        return found_client
+
+    async def find_user_by_uuid(self, uuid: str) -> User:
+        found_client = await self.user_repository.find_user_by_uuid(uuid)
         return found_client
 
     async def find_clients_by_uuid(self, uuid: str) -> Dict[Server, ClientIdentity]:

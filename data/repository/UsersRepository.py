@@ -90,7 +90,7 @@ class UsersRepository:
 
     async def find_user_by_uuid(self, uuid: str) -> User | None:
         for user in self.list_users():
-            if user.tgid == uuid:
+            if user.uuid == uuid:
                 return user
         return None
 
