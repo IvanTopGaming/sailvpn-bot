@@ -13,5 +13,8 @@ class VpnUserOnlyFilter(BaseFilter):
         if user:
             return {"vpn_user": user}
 
-        await update.answer("⛔ Доступ к боту запрещен, вы не являетесь доверенным пользователем. Если вы ожидали его получить, обратитесь в поддержку.", parse_mode=None)
+        await update.answer(
+            "⛔ Доступ к боту запрещен, вы не являетесь доверенным пользователем. Если вы ожидали его получить, обратитесь в поддержку.",
+            parse_mode=None,
+        )
         return False

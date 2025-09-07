@@ -12,6 +12,10 @@ class Tglogger:
         if not self.bot:
             return
         try:
-            await self.bot.send_message(chat_id=self.config.telegram_logs_chat_id, text=message, parse_mode=parse_mode)
+            await self.bot.send_message(
+                chat_id=self.config.telegram_logs_chat_id,
+                text=message,
+                parse_mode=parse_mode,
+            )
         except Exception as e:
             print(f"Failed to send message: {e}")

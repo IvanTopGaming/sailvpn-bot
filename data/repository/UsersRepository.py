@@ -13,7 +13,7 @@ import json
 
 
 class UsersRepository:
-    def __init__(self, file = "config/users.json"):
+    def __init__(self, file="config/users.json"):
         self.file = file
         self.allowed_protocols = ["vless"]
 
@@ -33,7 +33,9 @@ class UsersRepository:
                 return user
         return None
 
-    async def find_clients_by_uuid(self, servers: List[Server], uuid: str) -> Dict[Server, ClientIdentity]:
+    async def find_clients_by_uuid(
+        self, servers: List[Server], uuid: str
+    ) -> Dict[Server, ClientIdentity]:
         found_clients_tasks = []
         for server in servers:
             found_clients_tasks.append(self.find_client_in_server_by_uuid(server, uuid))
@@ -46,7 +48,9 @@ class UsersRepository:
 
         return found_clients
 
-    async def find_client_in_server_by_uuid(self, server: Server, uuid: str) -> ClientIdentity | None:
+    async def find_client_in_server_by_uuid(
+        self, server: Server, uuid: str
+    ) -> ClientIdentity | None:
         async with server.new_session() as session:
             for inbound in await session.inbound.get_list():
                 if inbound.protocol not in self.allowed_protocols:
@@ -60,10 +64,14 @@ class UsersRepository:
                         )
         return None
 
-    async def find_client_keys_by_uuid(self, servers: List[Server], uuid: str) -> List[UrlKey]:
+    async def find_client_keys_by_uuid(
+        self, servers: List[Server], uuid: str
+    ) -> List[UrlKey]:
         found_clients_tasks = []
         for server in servers:
-            found_clients_tasks.append(self.find_client_key_in_server_by_uuid(server, uuid))
+            found_clients_tasks.append(
+                self.find_client_key_in_server_by_uuid(server, uuid)
+            )
         found_clients_tasks = await asyncio.gather(*found_clients_tasks)
 
         found_clients = []
@@ -72,7 +80,9 @@ class UsersRepository:
 
         return found_clients
 
-    async def find_client_key_in_server_by_uuid(self, server: Server, uuid: str) -> List[UrlKey]:
+    async def find_client_key_in_server_by_uuid(
+        self, server: Server, uuid: str
+    ) -> List[UrlKey]:
         found_clients = []
         async with server.new_session() as session:
             for inbound in await session.inbound.get_list():
@@ -80,11 +90,13 @@ class UsersRepository:
                     continue
                 for client in inbound.settings.clients:
                     if client.id == uuid:
-                        found_clients.append(UrlKey(
-                            server=server,
-                            name=client.email,
-                            url_key=server.build_url_key(inbound, client),
-                        ))
+                        found_clients.append(
+                            UrlKey(
+                                server=server,
+                                name=client.email,
+                                url_key=server.build_url_key(inbound, client),
+                            )
+                        )
 
         return found_clients
 
@@ -104,7 +116,9 @@ class UsersRepository:
                 for client in inbound.settings.clients:
                     if client.id == uuid:"""
 
-    async def get_client_statistics(self, server: Server, client_identity: ClientIdentity) -> ClientStatistics | None:
+    async def get_client_statistics(
+        self, server: Server, client_identity: ClientIdentity
+    ) -> ClientStatistics | None:
         async with server.new_session() as session:
             client = await session.client.get_by_email(client_identity.client.email)
             online_clients = await session.client.online()

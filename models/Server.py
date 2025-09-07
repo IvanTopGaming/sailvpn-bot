@@ -17,10 +17,14 @@ class Server(BaseModel):
         return ServerSession(self)
 
     def build_url_key(self, inbound, client) -> str:
-        public_key = inbound.stream_settings.reality_settings.get("settings").get("publicKey")
+        public_key = inbound.stream_settings.reality_settings.get("settings").get(
+            "publicKey"
+        )
         website_name = inbound.stream_settings.reality_settings.get("serverNames")[0]
         short_id = inbound.stream_settings.reality_settings.get("shortIds")[0]
-        fp = inbound.stream_settings.reality_settings.get("settings", {}).get("fingerprint", "chrome")
+        fp = inbound.stream_settings.reality_settings.get("settings", {}).get(
+            "fingerprint", "chrome"
+        )
         flow = client.flow
 
         connection_string = (
@@ -33,7 +37,6 @@ class Server(BaseModel):
         connection_string += f"#vless-{self.conventional_name}-{client.email}"
 
         return connection_string
-
 
     def __hash__(self) -> int:
         return hash((self.host, self.username, self.password, self.conventional_name))

@@ -10,12 +10,12 @@ class ServerSession:
             host=self.server.host,
             username=self.server.username,
             password=self.server.password,
-            use_tls_verify=self.server.use_tls_verify
+            use_tls_verify=self.server.use_tls_verify,
         )
         await self.session.login()
         return self.session
 
     async def __aexit__(self, exc_type, exc, tb):
-        if hasattr(self, 'session'):
+        if hasattr(self, "session"):
             self.session = None
         return False

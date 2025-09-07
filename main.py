@@ -12,22 +12,30 @@ from utils.py3xui import find_client_by_uid
 app = App()
 dp = Dispatcher()
 
+
 @dp.message(CommandStart())
 async def bot_start(message):
     servers_repo = ServersRepository(file="config/servers.json")
     servers = servers_repo.list_servers()
     tmp_message = await message.answer("Searching for client...", parse_mode=None)
 
-    found_clients = await find_client_by_uid(servers, "942ea5e5-daa6-439c-a987-d2229ed43460")
+    found_clients = await find_client_by_uid(
+        servers, "942ea5e5-daa6-439c-a987-d2229ed43460"
+    )
 
-    text = [found_client.server.readable_name + ': ' + get_connection_string(
-        inbound=found_client.inbound,
-        user_uuid=found_client.client.id,
-        server_host=found_client.server.vless_host,
-        server_port=found_client.server.vless_port,
-        user_name=found_client.client.email,
-        server_name=found_client.server.vless_host
-    ) for found_client in found_clients]
+    text = [
+        found_client.server.readable_name
+        + ": "
+        + get_connection_string(
+            inbound=found_client.inbound,
+            user_uuid=found_client.client.id,
+            server_host=found_client.server.vless_host,
+            server_port=found_client.server.vless_port,
+            user_name=found_client.client.email,
+            server_name=found_client.server.vless_host,
+        )
+        for found_client in found_clients
+    ]
 
     await tmp_message.delete()
     await bot.send_message(tmp_message.chat.id, "\n\n".join(text), parse_mode=None)

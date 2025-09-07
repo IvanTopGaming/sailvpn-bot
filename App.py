@@ -26,7 +26,7 @@ class App:
         self.logger = logging.getLogger(__name__)
         self.bot = Bot(
             token=self.config.telegram_token,
-            default=DefaultBotProperties(parse_mode=None)
+            default=DefaultBotProperties(parse_mode=None),
         )
 
         self.server_repository = ServersRepository(file="config/servers.json")
@@ -40,7 +40,9 @@ class App:
 
         for handler in handle_names:
             self.logger.debug("Including router " + handler)
-            router: Router = __import__('routing.handles.' + handler, fromlist=['router']).router
+            router: Router = __import__(
+                "routing.handles." + handler, fromlist=["router"]
+            ).router
 
             # Process router
             router.message.outer_middleware(AppMiddleware(self))
@@ -52,10 +54,11 @@ class App:
         await self.logging_service.on_service_start()
         await self.dispatcher.start_polling(self.bot)
 
-
     async def find_users_key_by_uuid(self, uuid: str) -> list[UrlKey]:
         servers = self.server_repository.list_servers()
-        found_clients = await self.user_repository.find_client_keys_by_uuid(servers, uuid)
+        found_clients = await self.user_repository.find_client_keys_by_uuid(
+            servers, uuid
+        )
         return found_clients
 
     async def find_user_by_tgid(self, tgid: int) -> User:

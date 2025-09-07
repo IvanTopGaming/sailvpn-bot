@@ -9,10 +9,10 @@ class AppMiddleware(BaseMiddleware):
         self.app = app
 
     async def __call__(
-            self,
-            handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-            event: Message,
-            data: Dict[str, Any]
+        self,
+        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+        event: Message,
+        data: Dict[str, Any],
     ) -> Any:
-        data['app'] = self.app
+        data["app"] = self.app
         return await handler(event, data)

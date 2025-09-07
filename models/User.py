@@ -12,7 +12,7 @@ class User(BaseModel):
     preferred_server: str
 
     # Используем alias для поля с пробелом в имени
-    endless_premium: Optional[bool] = Field(None, alias='endless premium')
+    endless_premium: Optional[bool] = Field(None, alias="endless premium")
 
     # Эти поля могут отсутствовать в JSON, поэтому они опциональные
     referer: Optional[str] = None

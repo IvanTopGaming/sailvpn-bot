@@ -6,6 +6,7 @@ from routing.keyboard.start_keyboard import get_start_keyboard
 
 router = Router()
 
+
 @router.message(CommandStart(), VpnUserOnlyFilter())
 async def bot_start(message):
     await message.answer(

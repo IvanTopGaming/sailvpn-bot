@@ -5,6 +5,7 @@ from routing.filter.VpnUserOnlyFilter import VpnUserOnlyFilter
 
 router = Router()
 
+
 @router.callback_query(F.data.startswith("remove_message"), VpnUserOnlyFilter())
 async def remove_message(callback_query):
     try:
